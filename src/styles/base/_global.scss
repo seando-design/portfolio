@@ -1,9 +1,42 @@
-@use '../abstracts' as *;
+@use "../abstracts/mixins" as *;
+@use "./type" as *;
+
+html,
+body {
+  background: var(--cl-background);
+  isolation: isolate;
+}
 
 body {
-	font-family: 'Herbik';
+  @include flex($gap: var(--gap-m));
+}
+
+header,
+section,
+main,
+footer {
+  padding: var(--pd-main);
 }
 
 h1 {
-	font-family: 'General Sans';
+  @extend .text-heading;
+}
+
+h2 {
+  @extend .text-subheading;
+}
+
+p {
+  @extend .text-body;
+}
+
+nav a {
+  @extend .text-link;
+}
+
+a {
+  text-decoration: none;
+  color: var(--cl-text);
+  pointer-events: auto;
+  cursor: pointer;
 }

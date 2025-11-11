@@ -1,0 +1,13 @@
+.projects-filter {
+  cursor: pointer;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0.04em;
+    left: 0;
+    background: var(--cl-text);
+    height: 0.05em;
+    width: 100%;
+  }
+}

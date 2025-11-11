@@ -1,0 +1,12 @@
+.nav-fixed {
+  position: fixed;
+  background: transparent;
+  z-index: 999;
+  transform: translateZ(0);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  a {
+    color: var(--cl-background);
+    pointer-events: auto;
+  }
+}

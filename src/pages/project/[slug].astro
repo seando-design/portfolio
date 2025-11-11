@@ -1,6 +1,11 @@
 ---
-import type { Project } from '../../lib/types';
-import { client } from '../../lib/sanity';
+import type { ProjectDetailed } from '../../lib/types';
+import { client, urlFor } from '../../lib/sanity';
+import { PortableText } from 'astro-portabletext';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavTop from '../../components/NavTop.astro';
+import NavMiddle from '../../components/NavMiddle.astro';
+import NavBottom from '../../components/NavBottom.astro';
 
 export async function getStaticPaths() {
 	const paths = await client.fetch(`*[_type == "project" && defined(slug.current)]{
@@ -14,20 +19,73 @@ const query = `*[_type == "project" && slug.current == $slug][0]{
   title,
   slug,
   projectType,
-  thumbnail
+  description,
+  images[]{asset, alt},
+  layout
 }`;
-const project = await client.fetch<Project>(query, { slug });
+const project = await client.fetch<ProjectDetailed>(query, { slug });
 
-if (!project) {
-	throw new Error(`Project not found: ${slug}`);
-}
+const allProjects = await client.fetch(`
+  *[_type == "project" && defined(slug.current)]
+  | order(title asc) | order(rating desc) {
+    title,
+    "slug": slug.current
+  }
+`);
+const index = allProjects.findIndex(p => p.slug === slug);
+const prev = allProjects[(index - 1 + allProjects.length) % allProjects.length];
+const next = allProjects[(index + 1) % allProjects.length];
 ---
 
-<html>
-	<body>
-		<a href='/'>← Back</a>
-		<h1>{project.title}</h1>
-		{project.imageUrl && <img src={project.imageUrl} alt={project.title} width='500' />}
-		{project.projectType?.length && <p>Type: {project.projectType.join(', ')}</p>}
-	</body>
-</html>
+<style lang='scss'>
+	@use '../../styles/abstracts/mixins' as *;
+	@use '../../styles/base/type' as *;
+	header {
+		opacity: 0;
+		pointer-events: none;
+	}
+	.project-details {
+		@include grid(8);
+		.project-title {
+			@include grid__item(2, 6);
+			@include flex($gap: var(--gap-xs));
+		}
+		.project-description {
+			@include grid__item(4, 8);
+			@include flex($gap: var(--gap-xs));
+			:global(a) {
+				font-weight: 500;
+			}
+		}
+	}
+	.project-images {
+		&--2-col {
+			@include grid(8);
+			> img {
+				@include grid__item--span(4);
+			}
+		}
+		&--1-col {
+			@include grid(1);
+		}
+	}
+</style>
+
+<BaseLayout title={project.title}>
+	<NavTop />
+	<NavMiddle prev={prev} next={next} />
+	<NavBottom />
+	<header>
+		<p class='text-link'>Sean Do</p>
+	</header>
+	<section class='project-details'>
+		<div class='project-title'>
+			<h1>{project.title}</h1>
+			<p class='text-tag-large'><i>{project.projectType.join(' + ')}</i></p>
+		</div>
+		<div class='project-description'><PortableText value={project.description} /></div>
+	</section>
+	<section class={['project-images', `project-images--${project.layout}`].join(' ')}>
+		{project.images.map(({ asset }) => <img src={urlFor(asset).url()} />)}
+	</section>
+</BaseLayout>

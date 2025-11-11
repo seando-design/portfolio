@@ -1,0 +1,33 @@
+---
+export interface Props {
+	prev?: { title: string; slug: string };
+	next?: { title: string; slug: string };
+}
+
+const { prev, next } = Astro.props;
+---
+
+<style lang='scss'>
+	@use '../styles/abstracts/mixins' as *;
+	.nav-middle {
+		left: 50%;
+		bottom: var(--pd-main);
+		transform: translateX(-50%);
+		ul {
+			@include flex(row, var(--gap-xxs));
+		}
+	}
+</style>
+
+<nav class='nav-fixed nav-middle'>
+	<ul>
+		<li>
+			<!-- <a href='/archive'>(PREV)</a> -->
+			{prev && <a href={`/project/${prev.slug}`}>(PREV)</a>}
+		</li>
+		<li>
+			<!-- <a href='/archive'>(NEXT)</a> -->
+			{next && <a href={`/project/${next.slug}`}>(NEXT)</a>}
+		</li>
+	</ul>
+</nav>

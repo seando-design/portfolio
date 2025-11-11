@@ -1,0 +1,25 @@
+@use '../abstracts/variables' as *;
+@use 'sass:map';
+
+:root {
+	// PADDING
+	--pd-main: #{map.get($spacing, s)};
+
+	// GAPS
+	// --gap-s: #{$spacing-s};
+	// --gap-m: #{$spacing-m};
+	// --gap-xxs: #{$spacing-xxs};
+
+	@each $name, $value in $spacing {
+		--gap-#{$name}: #{$value};
+	}
+
+	// FONT SIZES
+	@each $name, $value in $font-size {
+		--fs-#{$name}: #{$value};
+	}
+
+	// COLOURS
+	--cl-text: #{$colour-dark};
+	--cl-background: #{$colour-light};
+}

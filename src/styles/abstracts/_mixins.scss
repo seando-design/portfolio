@@ -1,0 +1,77 @@
+// GRID
+@mixin grid(
+  $columns: 9,
+  $gap: var(--gap-xs),
+  $align: stretch,
+  $justify: start
+) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin grid__item(
+  $col-start: 1,
+  $col-end: -1,
+  $row-start: auto,
+  $row-end: auto
+) {
+  grid-column: #{$col-start} / #{$col-end};
+  @if ($row-start != auto or $row-end != auto) {
+    grid-row: #{$row-start} / #{$row-end};
+  }
+}
+
+@mixin grid__item--span($col-span: 1, $row-span: 1) {
+  grid-column: span #{$col-span};
+  grid-row: span #{$row-span};
+}
+
+// FLEX
+@mixin flex(
+  $direction: column,
+  $gap: var(--gap-s),
+  $justify: start,
+  $align: stretch
+) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// TRIM TEXT
+@mixin trim($type) {
+  display: flow-root;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 0;
+    overflow: visible;
+    pointer-events: none;
+    display: block;
+  }
+
+  @if ($type == sans) {
+    &::before {
+      margin-bottom: calc(-0.5lh + 0.34em);
+    }
+    &::after {
+      margin-bottom: calc(-0.5lh + 0.39em);
+    }
+  }
+
+  @if ($type == serif) {
+    &::before {
+      margin-bottom: calc(-0.5lh + 0.39em);
+    }
+    &::after {
+      margin-bottom: calc(-0.5lh + 0.34em);
+    }
+  }
+}

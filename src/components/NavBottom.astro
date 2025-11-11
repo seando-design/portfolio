@@ -1,0 +1,20 @@
+---
+
+---
+
+<style lang='scss'>
+	@use '../styles/abstracts/mixins' as *;
+	.nav-bottom {
+		left: var(--pd-main);
+		bottom: var(--pd-main);
+		> ul {
+			@include flex($gap: var(--gap-xs));
+		}
+	}
+</style>
+
+<nav class='nav-fixed nav-bottom'>
+	<li>
+		<a href='/archive'>(ARCHIVE)</a>
+	</li>
+</nav>
