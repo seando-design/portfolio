@@ -1,16 +1,33 @@
 ---
+import { client } from '../lib/sanity';
+import type { Project } from '../lib/types';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
+const query = `*[_type == "project"] {
+  title,
+  slug,
+  projectType,
+  "imageUrl": thumbnail.asset->url
+}`;
+const projects = await client.fetch<Project[]>(query);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title='Sean Do — Portfolio'>
+	<p class='text-intro'>
+		Sean Do <i>*pronounced dough* Qantas</i> is a graphic designer, type designer and web developer. His practice often explores
+		the intersection of print and digital environments, considering how type and editorial design adapt and translate across
+		different mediums.
+	</p>
+	<h1>Works</h1>
+	{
+		projects.map(p => (
+			<article>
+				<h2>
+					<a href={`/project/${p.slug?.current}`}>{p.title}</a>
+				</h2>
+				{p.projectType?.length && <p>Type: {p.projectType.join(', ')}</p>}
+				{p.imageUrl && <img src={p.imageUrl} alt={p.title} width='300' />}
+			</article>
+		))
+	}
+</BaseLayout>

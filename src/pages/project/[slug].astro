@@ -1,0 +1,33 @@
+---
+import type { Project } from '../../lib/types';
+import { client } from '../../lib/sanity';
+
+export async function getStaticPaths() {
+	const paths = await client.fetch(`*[_type == "project" && defined(slug.current)]{
+    "params": { "slug": slug.current }
+  }`);
+	return paths;
+}
+
+const { slug } = Astro.params;
+const query = `*[_type == "project" && slug.current == $slug][0]{
+  title,
+  slug,
+  projectType,
+  thumbnail
+}`;
+const project = await client.fetch<Project>(query, { slug });
+
+if (!project) {
+	throw new Error(`Project not found: ${slug}`);
+}
+---
+
+<html>
+	<body>
+		<a href='/'>← Back</a>
+		<h1>{project.title}</h1>
+		{project.imageUrl && <img src={project.imageUrl} alt={project.title} width='500' />}
+		{project.projectType?.length && <p>Type: {project.projectType.join(', ')}</p>}
+	</body>
+</html>
