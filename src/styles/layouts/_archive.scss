@@ -1,0 +1,22 @@
+// ONLY FOR ARCHIVE PAGE
+
+@use "../abstracts/mixins" as *;
+.archive-heading {
+  @include grid;
+  h1 {
+    @include grid__item(2);
+  }
+}
+.archive-grid {
+  @include grid();
+
+  .archive-item--oneThird {
+    @include grid__item--span(3);
+  }
+  .archive-item--twoThirds {
+    @include grid__item--span(6);
+  }
+  .archive-item--full {
+    @include grid__item();
+  }
+}

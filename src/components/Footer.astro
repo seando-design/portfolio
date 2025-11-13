@@ -1,5 +1,5 @@
 ---
-
+import LocalClock from './LocalClock.astro';
 ---
 
 <style lang='scss'>
@@ -14,10 +14,6 @@
 		}
 		&__copyright {
 			@include grid__item(1, 8);
-		}
-		&__time {
-			@include grid__item(8, 10);
-			transform: translateY(-50%);
 		}
 		&__nav {
 			@include grid__item();
@@ -39,7 +35,7 @@
 <footer class='footer'>
 	<p class='footer__name text-heading-large'>SEAN DO</p>
 	<p class='footer__copyright text-tag'><i>©️ 2025 | all rights reserved</i></p>
-	<p class='footer__time text-intro'>Melbourne<br />07:04PM</p>
+	<LocalClock />
 	<nav class='footer__nav'>
 		<ul>
 			<li><a id='scrollToTop'>(BACK TO TOP)</a></li>

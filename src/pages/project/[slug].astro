@@ -40,10 +40,6 @@ const next = allProjects[(index + 1) % allProjects.length];
 <style lang='scss'>
 	@use '../../styles/abstracts/mixins' as *;
 	@use '../../styles/base/type' as *;
-	header {
-		opacity: 0;
-		pointer-events: none;
-	}
 	.project-details {
 		@include grid(8);
 		.project-title {
@@ -51,7 +47,7 @@ const next = allProjects[(index + 1) % allProjects.length];
 			@include flex($gap: var(--gap-xs));
 		}
 		.project-description {
-			@include grid__item(4, 8);
+			@include grid__item(4, 7);
 			@include flex($gap: var(--gap-xs));
 			:global(a) {
 				font-weight: 500;
@@ -75,7 +71,7 @@ const next = allProjects[(index + 1) % allProjects.length];
 	<NavTop />
 	<NavMiddle prev={prev} next={next} />
 	<NavBottom />
-	<header>
+	<header class='hidden'>
 		<p class='text-link'>Sean Do</p>
 	</header>
 	<section class='project-details'>

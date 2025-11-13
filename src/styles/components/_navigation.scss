@@ -10,3 +10,24 @@
     pointer-events: auto;
   }
 }
+
+// UNDERLINE
+nav li {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--gap-xxs) * -1);
+    left: 0;
+    background: var(--cl-background);
+    height: 2.5px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}

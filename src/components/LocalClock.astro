@@ -1,0 +1,36 @@
+---
+
+---
+
+<style lang='scss'>
+	@use '../styles/abstracts/mixins' as *;
+	.footer__time {
+		@include grid__item(8, 10);
+		transform: translateY(-50%);
+	}
+</style>
+<p id='local-clock' class='footer__time text-intro'>Melbourne<br />07:04PM</p>
+<script>
+	async function updateClock() {
+		const clock = document.getElementById('local-clock');
+		if (!clock) return;
+		const res = await fetch('https://ipapi.co/json/');
+		const data = await res.json();
+		const city = data.city;
+
+		const update = () => {
+			const now = new Date();
+			const time = now
+				.toLocaleString('en', {
+					hour: 'numeric',
+					minute: '2-digit',
+					second: '2-digit',
+				})
+				.replaceAll(' ', '');
+			clock.innerHTML = `${city}<br>${time}`;
+		};
+		update();
+		setInterval(update, 1000);
+	}
+	updateClock();
+</script>

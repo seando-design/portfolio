@@ -7,24 +7,7 @@ const { title, slug, projectType, thumbnail } = Astro.props;
 ---
 
 <style lang='scss'>
-	@use '../styles/abstracts/mixins' as *;
-	@use '../styles/base/type' as *;
-	.project-card {
-		@include grid__item--span(1);
-		@include flex($gap: var(--gap-xxs));
-	}
-	.project-type {
-		@extend .text-tag;
-	}
-	.image-container {
-		aspect-ratio: 16 / 10;
-		overflow: hidden;
-		img {
-			height: 100%;
-			width: 100%;
-			object-fit: cover;
-		}
-	}
+	@use '../styles/components/project-card';
 </style>
 <a class='project-card' href={'/project/' + slug.current}>
 	<h2>

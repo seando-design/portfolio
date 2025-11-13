@@ -1,5 +1,4 @@
 .projects-filter {
-  cursor: pointer;
   position: relative;
   &::after {
     content: "";
@@ -7,7 +6,7 @@
     bottom: 0.04em;
     left: 0;
     background: var(--cl-text);
-    height: 0.05em;
+    height: 2.5px;
     width: 100%;
   }
 }

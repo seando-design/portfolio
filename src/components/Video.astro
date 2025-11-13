@@ -1,0 +1,55 @@
+---
+interface Props {
+	title: string;
+	playbackId: string;
+	thumbnail?: string;
+	class?: string;
+}
+const { title, playbackId, thumbnail, class: className } = Astro.props;
+---
+
+<script>
+	import '@mux/mux-video';
+	window.addEventListener('DOMContentLoaded', () => {
+		const videoWrappers = document.querySelectorAll<HTMLElement>('.video-wrapper');
+		const cursorText = document.querySelector('.hover-cursor span') as HTMLElement | null;
+		if (!cursorText) return;
+		videoWrappers.forEach(wrapper => {
+			const video = wrapper.querySelector('mux-video') as HTMLVideoElement;
+			const thumbnail = wrapper.querySelector('.video-thumbnail') as HTMLImageElement | null;
+			wrapper.addEventListener('click', () => {
+				if (thumbnail && thumbnail.style.display !== 'none') {
+					thumbnail.style.display = 'none';
+				}
+				if (video.paused) {
+					video.play();
+					cursorText.textContent = '(PAUSE)';
+				} else {
+					video.pause();
+					cursorText.textContent = '(PLAY)';
+				}
+			});
+		});
+	});
+</script>
+
+<style lang='scss'>
+	.video-wrapper {
+		position: relative;
+		cursor: none;
+	}
+	.video-thumbnail {
+		position: absolute;
+		inset: 0;
+		object-fit: cover;
+		z-index: 1;
+	}
+	mux-video {
+		display: block;
+	}
+</style>
+
+<div class={`video-wrapper ${className}`}>
+	{thumbnail && <img class='video-thumbnail' src={thumbnail} alt={title + ' thumbnail'} />}
+	<mux-video playback-id={playbackId} metadata-video-title={title}></mux-video>
+</div>

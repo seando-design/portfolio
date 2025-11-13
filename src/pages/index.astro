@@ -6,6 +6,7 @@ import NavTop from '../components/NavTop.astro';
 import NavBottom from '../components/NavBottom.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Footer from '../components/Footer.astro';
+import HoverCursor from '../components/HoverCursor.astro';
 
 const query = `*[_type == "project"] |  order(title asc) | order(rating desc) {
   title,
@@ -27,12 +28,14 @@ const projects = await client.fetch<Project[]>(query);
 	}
 	.projects {
 		@include grid();
+		row-gap: var(--gap-m);
 		h1 {
 			@include grid__item(3, -1);
 		}
 		.projects__grid {
 			@include grid__item(4, -1);
 			@include grid(2);
+			row-gap: var(--gap-s);
 		}
 	}
 </style>
@@ -42,16 +45,18 @@ const projects = await client.fetch<Project[]>(query);
 	<NavBottom />
 	<header>
 		<p class='text-intro'>
-			Sean Do <i>*pronounced dough*</i> is a <span class='projects-filter'>graphic designer</span>, <span
-				class='projects-filter'>type designer</span
-			> and <span class='projects-filter'>web developer</span>. His practice often explores the intersection of print
-			and digital environments, considering how type and editorial design adapt and translate across
+			Sean Do <i>*pronounced dough*</i> is a <span class='projects-filter'>graphic&nbsp;designer</span>, <span
+				class='projects-filter'>type&nbsp;designer</span
+			> and <span class='projects-filter'>web&nbsp;developer</span>. His practice often explores the intersection of
+			print and digital environments, considering how type and editorial design adapt and translate across
 			different&nbsp;mediums.
 		</p>
 	</header>
 	<main class='projects'>
 		<h1>Works</h1>
 		<div class='projects__grid'>
+			<HoverCursor text='(OPEN)' />
+
 			{
 				projects.map(project => (
 					<ProjectCard

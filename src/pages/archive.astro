@@ -1,0 +1,50 @@
+---
+import { client, urlFor } from '../lib/sanity';
+import NavTop from '../components/NavTop.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Video from '../components/Video.astro';
+import HoverCursor from '../components/HoverCursor.astro';
+const query = `*[_type == 'archiveProject'] |  order(title asc) | order(rating desc) {
+	title,
+	media {
+		mediaType,
+		image {asset},
+		video {asset->{playbackId}},
+		thumbnail {asset}
+	},
+	layout
+}`;
+
+const projects = await client.fetch(query);
+---
+
+<BaseLayout title='Archive'>
+	<NavTop />
+	<header class='hidden'>
+		<p class='text-link'>Sean Do</p>
+	</header>
+	<section class='archive-heading'>
+		<h1>ARCHIVE</h1>
+	</section>
+	<section class='archive-grid'>
+		<HoverCursor text='(PLAY)' />
+		{
+			projects.map(({ title, media, layout }) => {
+				const { mediaType, image, video, thumbnail } = media;
+				if (mediaType === 'video' && video) {
+					return (
+						<Video
+							class={`archive-item--${layout}`}
+							title={title}
+							playbackId={video.asset.playbackId}
+							thumbnail={thumbnail ? urlFor(thumbnail.asset).url() : undefined}
+						/>
+					);
+				}
+				if (mediaType === 'image' && image) {
+					return <img class={`archive-item--${layout}`} src={urlFor(image.asset).url()} alt={title} loading='lazy' />;
+				}
+			})
+		}
+	</section>
+</BaseLayout>
