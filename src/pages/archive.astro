@@ -18,6 +18,11 @@ const query = `*[_type == 'archiveProject'] |  order(title asc) | order(rating d
 const projects = await client.fetch(query);
 ---
 
+<style lang='scss'>
+	@use '../styles/layouts/archive';
+	@use '../styles/components/video';
+</style>
+
 <BaseLayout title='Archive'>
 	<NavTop />
 	<header class='hidden'>
@@ -33,12 +38,13 @@ const projects = await client.fetch(query);
 				const { mediaType, image, video, thumbnail } = media;
 				if (mediaType === 'video' && video) {
 					return (
-						<Video
-							class={`archive-item--${layout}`}
-							title={title}
-							playbackId={video.asset.playbackId}
-							thumbnail={thumbnail ? urlFor(thumbnail.asset).url() : undefined}
-						/>
+						<div class={`video-wrapper archive-item--${layout}`}>
+							<Video
+								title={title}
+								playbackId={video.asset.playbackId}
+								thumbnail={thumbnail ? urlFor(thumbnail.asset).url() : undefined}
+							/>
+						</div>
 					);
 				}
 				if (mediaType === 'image' && image) {

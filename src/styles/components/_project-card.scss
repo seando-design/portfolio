@@ -1,5 +1,6 @@
 @use "../abstracts/mixins" as *;
 @use "../base/type";
+
 .project-card {
   cursor: none;
   @include grid__item--span(1);
@@ -10,6 +11,7 @@
     transform 0.3s ease,
     outline 0.3s ease;
 
+  // HOVER EFFECT
   &::after {
     content: "";
     position: absolute;
@@ -32,10 +34,15 @@
     }
   }
 }
+
+.project-name {
+  @include flex($gap: var(--gap-xxs));
+}
 .project-type {
   @extend .text-tag;
 }
-.image-container {
+
+.project-image {
   aspect-ratio: 16 / 10;
   overflow: hidden;
   img {

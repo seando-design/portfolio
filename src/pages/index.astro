@@ -18,26 +18,7 @@ const projects = await client.fetch<Project[]>(query);
 ---
 
 <style lang='scss'>
-	@use '../styles/abstracts/mixins' as *;
-	header {
-		@include grid();
-		p {
-			@include grid__item(1, 9);
-			text-wrap: balance;
-		}
-	}
-	.projects {
-		@include grid();
-		row-gap: var(--gap-m);
-		h1 {
-			@include grid__item(3, -1);
-		}
-		.projects__grid {
-			@include grid__item(4, -1);
-			@include grid(2);
-			row-gap: var(--gap-s);
-		}
-	}
+	@use '../styles/layouts/works';
 </style>
 
 <BaseLayout title='Sean Do — Portfolio'>

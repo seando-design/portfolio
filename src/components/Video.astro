@@ -3,9 +3,8 @@ interface Props {
 	title: string;
 	playbackId: string;
 	thumbnail?: string;
-	class?: string;
 }
-const { title, playbackId, thumbnail, class: className } = Astro.props;
+const { title, playbackId, thumbnail } = Astro.props;
 ---
 
 <script>
@@ -34,22 +33,8 @@ const { title, playbackId, thumbnail, class: className } = Astro.props;
 </script>
 
 <style lang='scss'>
-	.video-wrapper {
-		position: relative;
-		cursor: none;
-	}
-	.video-thumbnail {
-		position: absolute;
-		inset: 0;
-		object-fit: cover;
-		z-index: 1;
-	}
-	mux-video {
-		display: block;
-	}
+	@use '../styles/components/video';
 </style>
 
-<div class={`video-wrapper ${className}`}>
-	{thumbnail && <img class='video-thumbnail' src={thumbnail} alt={title + ' thumbnail'} />}
-	<mux-video playback-id={playbackId} metadata-video-title={title}></mux-video>
-</div>
+{thumbnail && <img class='video-thumbnail' src={thumbnail} alt={title + ' thumbnail'} />}
+<mux-video playback-id={playbackId} metadata-video-title={title}></mux-video>

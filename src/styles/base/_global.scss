@@ -8,14 +8,19 @@ body {
 }
 
 body {
-  @include flex($gap: var(--gap-m));
+  @include flex($gap: var(--gap-m), $align: center);
 }
 
 header,
 section,
-main,
+main {
+  padding: var(--pd-main);
+  width: min(100%, 1600px);
+}
+
 footer {
   padding: var(--pd-main);
+  min-width: 100%;
 }
 
 h1 {
