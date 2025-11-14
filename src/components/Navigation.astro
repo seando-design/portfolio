@@ -1,0 +1,63 @@
+---
+const path = Astro.url.pathname;
+export interface Props {
+	prev?: { title: string; slug: string };
+	next?: { title: string; slug: string };
+}
+const { prev, next } = Astro.props;
+---
+
+<style lang='scss'>
+	@use '../styles/components/navigation';
+</style>
+
+<nav class='nav-fixed'>
+	<ul class='nav-top'>
+		{
+			path !== '/' && (
+				<li>
+					<a href='/'>(SEAN DO)</a>
+				</li>
+			)
+		}
+
+		<li class='nav-email'>
+			<a href='mailto:seando.design@gmail.com'>(EMAIL)</a>
+		</li>
+	</ul>
+	<ul class='nav-bottom'>
+		{
+			path !== '/archive' && (
+				<li>
+					<a href='/archive'>(ARCHIVE)</a>
+				</li>
+			)
+		}
+		<ul class='nav-projects'>
+			<li>
+				{prev && <a href={`/project/${prev.slug}`}>(PREV)</a>}
+			</li>
+			<li>
+				{next && <a href={`/project/${next.slug}`}>(NEXT)</a>}
+			</li>
+		</ul>
+		<li>
+			<a id='scrollToTop'>(TO TOP)</a>
+		</li>
+	</ul>
+</nav>
+
+<script>
+	const link = document.getElementById('scrollToTop');
+	link?.addEventListener('click', () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	});
+
+	window.addEventListener('scroll', () => {
+		if (window.scrollY > 100) {
+			link?.classList.add('visible');
+		} else {
+			link?.classList.remove('visible');
+		}
+	});
+</script>

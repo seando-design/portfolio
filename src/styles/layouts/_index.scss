@@ -1,1 +1,34 @@
-@forward "archive";
+@use "../abstracts/mixins" as *;
+
+header {
+  @include grid();
+  p {
+    @include grid__item(1, 9);
+    text-wrap: balance;
+  }
+}
+.projects {
+  @include grid();
+  row-gap: var(--gap-m);
+  h1 {
+    @include grid__item(3, -1);
+    @include responsive("medium") {
+      grid-column-start: 2;
+    }
+    @include responsive("small") {
+      grid-column-start: 1;
+    }
+  }
+  .projects__grid {
+    @include grid__item(4, -1);
+    @include grid($minmax: minmax(400px, 1fr));
+    row-gap: var(--gap-m);
+    @include responsive(medium) {
+      grid-column-start: 3;
+    }
+    @include responsive(small) {
+      @include grid(1);
+      grid-column-start: 1;
+    }
+  }
+}

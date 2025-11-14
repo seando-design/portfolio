@@ -15,7 +15,7 @@ header,
 section,
 main {
   padding: var(--pd-main);
-  width: min(100%, 1600px);
+  width: min(100%, 1920px);
 }
 
 footer {
@@ -40,6 +40,7 @@ nav a {
 }
 
 a {
+  font-weight: 500;
   text-decoration: none;
   color: var(--cl-text);
   pointer-events: auto;

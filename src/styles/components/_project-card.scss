@@ -4,7 +4,7 @@
 .project-card {
   cursor: none;
   @include grid__item--span(1);
-  @include flex($gap: var(--gap-xxs));
+  @include flex($gap: var(--gap-xxs), $justify: end);
   position: relative;
   transition:
     color 0.3s ease,

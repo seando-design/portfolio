@@ -3,13 +3,9 @@
 ---
 
 <style lang='scss'>
-	@use '../styles/abstracts/mixins' as *;
-	.footer__time {
-		@include grid__item(8, 10);
-		transform: translateY(-50%);
-	}
+	@use '../styles/components/footer-clock';
 </style>
-<p id='local-clock' class='footer__time text-intro'>Melbourne<br />07:04PM</p>
+<p id='local-clock' class='footer__clock text-intro'>Melbourne<br />07:04PM</p>
 <script>
 	async function updateClock() {
 		const clock = document.getElementById('local-clock');

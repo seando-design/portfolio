@@ -2,11 +2,10 @@
 import { client } from '../lib/sanity';
 import type { Project } from '../lib/types';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import NavTop from '../components/NavTop.astro';
-import NavBottom from '../components/NavBottom.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Footer from '../components/Footer.astro';
 import HoverCursor from '../components/HoverCursor.astro';
+import Navigation from '../components/Navigation.astro';
 
 const query = `*[_type == "project"] |  order(title asc) | order(rating desc) {
   title,
@@ -18,12 +17,11 @@ const projects = await client.fetch<Project[]>(query);
 ---
 
 <style lang='scss'>
-	@use '../styles/layouts/works';
+	@use '../styles/layouts/index';
 </style>
 
 <BaseLayout title='Sean Do — Portfolio'>
-	<NavTop />
-	<NavBottom />
+	<Navigation />
 	<header>
 		<p class='text-intro'>
 			Sean Do <i>*pronounced dough*</i> is a <span class='projects-filter'>graphic&nbsp;designer</span>, <span

@@ -1,15 +1,11 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 @use "sass:map";
 
 :root {
   // PADDING
   --pd-main: #{map.get($spacing, s)};
   --pd-small: #{map.get($spacing, xxs)};
-
-  // GAPS
-  // --gap-s: #{$spacing-s};
-  // --gap-m: #{$spacing-m};
-  // --gap-xxs: #{$spacing-xxs};
 
   @each $name, $value in $spacing {
     --gap-#{$name}: #{$value};
@@ -23,4 +19,10 @@
   // COLOURS
   --cl-text: #{$colour-dark};
   --cl-background: #{$colour-light};
+}
+
+@include responsive(medium) {
+  :root {
+    --pd-main: #{map.get($spacing, xs)};
+  }
 }

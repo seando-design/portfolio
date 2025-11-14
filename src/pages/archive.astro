@@ -1,6 +1,6 @@
 ---
 import { client, urlFor } from '../lib/sanity';
-import NavTop from '../components/NavTop.astro';
+import Navigation from '../components/Navigation.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Video from '../components/Video.astro';
 import HoverCursor from '../components/HoverCursor.astro';
@@ -24,7 +24,7 @@ const projects = await client.fetch(query);
 </style>
 
 <BaseLayout title='Archive'>
-	<NavTop />
+	<Navigation />
 	<header class='hidden'>
 		<p class='text-link'>Sean Do</p>
 	</header>

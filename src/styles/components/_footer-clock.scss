@@ -1,0 +1,10 @@
+@use "../abstracts/mixins" as *;
+
+.footer__clock {
+  text-align: right;
+  @include grid__item(1, -1, 1, 2);
+  align-self: end;
+  @include responsive(medium) {
+    grid-row: auto;
+  }
+}

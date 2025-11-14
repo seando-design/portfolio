@@ -1,0 +1,25 @@
+@use "../abstracts/mixins" as *;
+.footer {
+  background-color: var(--cl-text);
+  color: var(--cl-background);
+  overflow: hidden;
+  @include grid();
+  &__name {
+    @include grid__item(1, 8, 1, 2);
+    @include responsive(medium) {
+      grid-column: 1 / -1;
+    }
+  }
+  &__copyright {
+    @include grid__item(1, 8);
+  }
+  &__nav {
+    @include grid__item();
+    padding-top: var(--gap-m);
+    justify-self: center;
+    a {
+      width: min-content;
+      color: var(--cl-background);
+    }
+  }
+}

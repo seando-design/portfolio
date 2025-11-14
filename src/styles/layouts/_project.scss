@@ -1,0 +1,38 @@
+@use "../abstracts/mixins" as *;
+.project-details {
+  @include grid(8);
+  .project-title {
+    @include grid__item(2, 6);
+    @include flex($gap: var(--gap-xs));
+    @include responsive(large) {
+      grid-column-end: 8;
+    }
+    @include responsive(small) {
+      grid-column-start: 1;
+    }
+  }
+  .project-description {
+    @include grid__item(4, 7);
+    @include flex($gap: var(--gap-xs));
+    @include responsive(large) {
+      grid-column-end: 8;
+    }
+    @include responsive(small) {
+      grid-column: 2 / -1;
+    }
+  }
+}
+.project-images {
+  &--2-col {
+    @include grid($minmax: minmax(600px, 1fr));
+    @include responsive(medium) {
+      @include grid(1);
+    }
+    // > img {
+    //   @include grid__item--span(4);
+    // }
+  }
+  &--1-col {
+    @include grid(1);
+  }
+}

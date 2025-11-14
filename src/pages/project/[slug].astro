@@ -3,9 +3,7 @@ import type { ProjectDetailed } from '../../lib/types';
 import { client, urlFor } from '../../lib/sanity';
 import { PortableText } from 'astro-portabletext';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import NavTop from '../../components/NavTop.astro';
-import NavMiddle from '../../components/NavMiddle.astro';
-import NavBottom from '../../components/NavBottom.astro';
+import Navigation from '../../components/Navigation.astro';
 
 export async function getStaticPaths() {
 	const paths = await client.fetch(`*[_type == "project" && defined(slug.current)]{
@@ -38,39 +36,11 @@ const next = allProjects[(index + 1) % allProjects.length];
 ---
 
 <style lang='scss'>
-	@use '../../styles/abstracts/mixins' as *;
-	@use '../../styles/base/type' as *;
-	.project-details {
-		@include grid(8);
-		.project-title {
-			@include grid__item(2, 6);
-			@include flex($gap: var(--gap-xs));
-		}
-		.project-description {
-			@include grid__item(4, 7);
-			@include flex($gap: var(--gap-xs));
-			:global(a) {
-				font-weight: 500;
-			}
-		}
-	}
-	.project-images {
-		&--2-col {
-			@include grid(8);
-			> img {
-				@include grid__item--span(4);
-			}
-		}
-		&--1-col {
-			@include grid(1);
-		}
-	}
+	@use '../../styles/layouts/project';
 </style>
 
 <BaseLayout title={project.title}>
-	<NavTop />
-	<NavMiddle prev={prev} next={next} />
-	<NavBottom />
+	<Navigation prev={prev} next={next} />
 	<header class='hidden'>
 		<p class='text-link'>Sean Do</p>
 	</header>
@@ -84,4 +54,7 @@ const next = allProjects[(index + 1) % allProjects.length];
 	<section class={['project-images', `project-images--${project.layout}`].join(' ')}>
 		{project.images.map(({ asset }) => <img src={urlFor(asset).url()} />)}
 	</section>
+	<header class='hidden'>
+		<p class='text-link'>Sean Do</p>
+	</header>
 </BaseLayout>

@@ -3,33 +3,7 @@ import LocalClock from './LocalClock.astro';
 ---
 
 <style lang='scss'>
-	@use '../styles/abstracts/mixins' as *;
-	.footer {
-		background-color: var(--cl-text);
-		color: var(--cl-background);
-		overflow: hidden;
-		@include grid();
-		&__name {
-			@include grid__item(1, 8);
-		}
-		&__copyright {
-			@include grid__item(1, 8);
-		}
-		&__nav {
-			@include grid__item();
-			> ul {
-				@include flex(row, 0, space-between);
-				width: 50%;
-				margin-left: auto;
-				li:first-child {
-					transform: translateX(-50%);
-				}
-			}
-			a {
-				color: var(--cl-background);
-			}
-		}
-	}
+	@use '../styles/components/footer';
 </style>
 
 <footer class='footer'>
@@ -37,16 +11,6 @@ import LocalClock from './LocalClock.astro';
 	<p class='footer__copyright text-tag'><i>©️ 2025 | all rights reserved</i></p>
 	<LocalClock />
 	<nav class='footer__nav'>
-		<ul>
-			<li><a id='scrollToTop'>(BACK TO TOP)</a></li>
-			<li><a href='https://www.instagram.com/seando.design/'>(INSTAGRAM)</a></li>
-		</ul>
+		<a href='https://www.instagram.com/seando.design/'>(INSTAGRAM)</a>
 	</nav>
 </footer>
-
-<script>
-	const link = document.getElementById('scrollToTop');
-	link?.addEventListener('click', () => {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	});
-</script>

@@ -3,6 +3,7 @@ $spacing: (
   xs: 1rem,
   s: 1.5rem,
   m: 3rem,
+  l: 5rem,
 );
 
 $spacing-xxs: 0.5rem;
@@ -11,13 +12,16 @@ $spacing-s: 1.5rem;
 $spacing-m: 3rem;
 
 $font-size: (
-  heading-large: 14rem,
-  intro: 3.6rem,
-  heading: 3.5rem,
+  // 375 - 1920
+  heading-large: clamp(5rem, calc(13.4628vw + 1.8447rem), 18rem),
+  // 375 - 1920
+  intro: clamp(1.5rem, calc(2.589vw + 0.8932rem), 4rem),
+  heading: clamp(2rem, calc(2.0712vw + 1.5146rem), 4rem),
   subheading: 1.25rem,
-  link: 2rem,
-  body: 1.25rem,
-  caption: 1rem,
+  // 375 - 1920
+  link: clamp(1rem, calc(1.5534vw + 0.6359rem), 2.5rem),
+  body: clamp(1rem, calc(0.3883vw + 0.909rem), 1.375rem),
+  caption: 1rem
 );
 
 $colour-light: #fff;
