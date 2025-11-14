@@ -1,6 +1,4 @@
-// ONLY FOR ARCHIVE PAGE
-
-@use "../abstracts/mixins" as *;
+@use '../abstracts/mixins' as *;
 .archive-heading {
   @include grid;
   h1 {
@@ -8,13 +6,22 @@
   }
 }
 .archive-grid {
-  @include grid();
+  @include grid(3);
+  @include responsive(medium) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include responsive(small) {
+    grid-template-columns: 1fr;
+  }
 
   .archive-item--oneThird {
-    @include grid__item--span(3);
+    @include grid__item--span(1);
   }
   .archive-item--twoThirds {
-    @include grid__item--span(6);
+    @include grid__item--span(2);
+    @include responsive(small) {
+      grid-column: span 1;
+    }
   }
   .archive-item--full {
     @include grid__item();

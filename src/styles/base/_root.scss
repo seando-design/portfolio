@@ -1,6 +1,6 @@
-@use "../abstracts/variables" as *;
-@use "../abstracts/mixins" as *;
-@use "sass:map";
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use 'sass:map';
 
 :root {
   // PADDING
@@ -11,6 +11,8 @@
     --gap-#{$name}: #{$value};
   }
 
+  --grid-gap: var(--gap-xs);
+
   // FONT SIZES
   @each $name, $value in $font-size {
     --fs-#{$name}: #{$value};
@@ -19,10 +21,16 @@
   // COLOURS
   --cl-text: #{$colour-dark};
   --cl-background: #{$colour-light};
+
+  // UNDERLINE
+  @each $name, $value in $underline {
+    --underline-#{$name}: #{$value};
+  }
 }
 
 @include responsive(medium) {
   :root {
     --pd-main: #{map.get($spacing, xs)};
+    --grid-gap: var(--gap-xxs);
   }
 }

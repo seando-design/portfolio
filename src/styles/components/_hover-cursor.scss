@@ -1,8 +1,8 @@
-@use "../abstracts/mixins" as *;
-@use "../base/type";
+@use '../abstracts/mixins' as *;
+@use '../base/type';
 
 @property --cursor-scale {
-  syntax: "<number>";
+  syntax: '<number>';
   inherits: false;
   initial-value: 0;
 }
@@ -34,7 +34,7 @@
     position: relative;
     display: inline-block;
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;
@@ -51,5 +51,11 @@
     span::after {
       transform: scaleX(1);
     }
+  }
+}
+
+@media (hover: none) {
+  .hover-cursor {
+    display: none !important;
   }
 }

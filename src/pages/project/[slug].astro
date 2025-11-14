@@ -4,6 +4,7 @@ import { client, urlFor } from '../../lib/sanity';
 import { PortableText } from 'astro-portabletext';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
+import PortableLink from '../../components/PortableLink.astro';
 
 export async function getStaticPaths() {
 	const paths = await client.fetch(`*[_type == "project" && defined(slug.current)]{
@@ -30,31 +31,39 @@ const allProjects = await client.fetch(`
     "slug": slug.current
   }
 `);
+const components = {
+	mark: {
+		link: PortableLink,
+	},
+};
+
 const index = allProjects.findIndex(p => p.slug === slug);
 const prev = allProjects[(index - 1 + allProjects.length) % allProjects.length];
 const next = allProjects[(index + 1) % allProjects.length];
 ---
 
-<style lang='scss'>
+<style lang="scss">
 	@use '../../styles/layouts/project';
 </style>
 
 <BaseLayout title={project.title}>
 	<Navigation prev={prev} next={next} />
-	<header class='hidden'>
-		<p class='text-link'>Sean Do</p>
+	<header class="hidden" aria-hidden="true">
+		<p class="text-link">Sean Do</p>
 	</header>
-	<section class='project-details'>
-		<div class='project-title'>
+	<section class="project-details">
+		<div class="project-title">
 			<h1>{project.title}</h1>
-			<p class='text-tag-large'><i>{project.projectType.join(' + ')}</i></p>
+			<p class="text-tag-large"><i>{project.projectType.join(' + ')}</i></p>
 		</div>
-		<div class='project-description'><PortableText value={project.description} /></div>
+		<div class="project-description">
+			<PortableText value={project.description} components={components} />
+		</div>
 	</section>
 	<section class={['project-images', `project-images--${project.layout}`].join(' ')}>
 		{project.images.map(({ asset }) => <img src={urlFor(asset).url()} />)}
 	</section>
-	<header class='hidden'>
-		<p class='text-link'>Sean Do</p>
+	<header class="hidden">
+		<p class="text-link">Sean Do</p>
 	</header>
 </BaseLayout>

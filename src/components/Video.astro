@@ -12,29 +12,56 @@ const { title, playbackId, thumbnail } = Astro.props;
 	window.addEventListener('DOMContentLoaded', () => {
 		const videoWrappers = document.querySelectorAll<HTMLElement>('.video-wrapper');
 		const cursorText = document.querySelector('.hover-cursor span') as HTMLElement | null;
-		if (!cursorText) return;
+
+		if (!videoWrappers.length || !cursorText) return;
+
 		videoWrappers.forEach(wrapper => {
-			const video = wrapper.querySelector('mux-video') as HTMLVideoElement;
+			const video = wrapper.querySelector('mux-video') as HTMLVideoElement | null;
+			if (!video) return;
 			const thumbnail = wrapper.querySelector('.video-thumbnail') as HTMLImageElement | null;
+			const playButton = wrapper.querySelector('.video-play-btn') as HTMLElement | null;
+
+			const updateCursorText = () => {
+				cursorText.textContent = video.paused ? '(PLAY)' : '(PAUSE)';
+			};
+
+			const hidePlayButton = () => {
+				wrapper.classList.add('playing');
+				if (playButton) playButton.style.opacity = '0';
+			};
+
+			const showPlayButton = () => {
+				wrapper.classList.remove('playing');
+				if (playButton) playButton.style.opacity = '1';
+			};
+
 			wrapper.addEventListener('click', () => {
 				if (thumbnail && thumbnail.style.display !== 'none') {
 					thumbnail.style.display = 'none';
 				}
 				if (video.paused) {
 					video.play();
-					cursorText.textContent = '(PAUSE)';
 				} else {
 					video.pause();
-					cursorText.textContent = '(PLAY)';
 				}
+			});
+
+			video.addEventListener('play', () => {
+				hidePlayButton();
+				updateCursorText();
+			});
+			video.addEventListener('pause', () => {
+				showPlayButton();
+				updateCursorText();
 			});
 		});
 	});
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 	@use '../styles/components/video';
 </style>
 
-{thumbnail && <img class='video-thumbnail' src={thumbnail} alt={title + ' thumbnail'} />}
-<mux-video playback-id={playbackId} metadata-video-title={title}></mux-video>
+<div class="video-play-btn"></div>
+{thumbnail && <img class="video-thumbnail" src={thumbnail} alt={title + ' thumbnail'} />}
+<mux-video playsinline playback-id={playbackId} metadata-video-title={title}></mux-video>

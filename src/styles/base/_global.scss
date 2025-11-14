@@ -1,5 +1,5 @@
-@use "../abstracts/mixins" as *;
-@use "./type" as *;
+@use '../abstracts/mixins' as *;
+@use './type' as *;
 
 html,
 body {
@@ -45,4 +45,8 @@ a {
   color: var(--cl-text);
   pointer-events: auto;
   cursor: pointer;
+}
+
+img {
+  object-fit: cover;
 }

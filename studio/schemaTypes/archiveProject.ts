@@ -38,6 +38,10 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'caption',
+      type: 'string',
+    }),
+    defineField({
       name: 'media',
       title: 'Image / Video',
       type: 'object',
@@ -71,7 +75,6 @@ export default defineType({
           title: 'Thumbnail',
           type: 'image',
           options: {hotspot: true},
-          hidden: ({parent}) => parent?.mediaType !== 'video',
         }),
       ],
     }),

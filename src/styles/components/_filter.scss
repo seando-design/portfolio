@@ -1,12 +1,12 @@
 .projects-filter {
   position: relative;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0.04em;
     left: 0;
     background: var(--cl-text);
-    height: 2.5px;
+    height: 0.05em;
     width: 100%;
   }
 }

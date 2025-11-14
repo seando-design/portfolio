@@ -14,6 +14,9 @@
   .project-description {
     @include grid__item(4, 7);
     @include flex($gap: var(--gap-xs));
+    &__link {
+      font-size: 10rem;
+    }
     @include responsive(large) {
       grid-column-end: 8;
     }

@@ -1,5 +1,5 @@
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import type { PortableTextBlock } from "@portabletext/types";
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import type { PortableTextBlock } from '@portabletext/types';
 
 export interface Project {
   title: string;
@@ -17,5 +17,20 @@ export interface ProjectDetailed {
     asset: SanityImageSource;
     alt: string;
   }[];
+  layout: string;
+}
+
+export interface ArchiveProject {
+  title: string;
+  media: {
+    mediaType: string;
+    image?: {
+      asset: SanityImageSource;
+    };
+    video?: {
+      asset: { playbackId: string };
+    };
+    thumbnail?: { asset: SanityImageSource };
+  };
   layout: string;
 }

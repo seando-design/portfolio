@@ -1,4 +1,5 @@
 ---
+import type { ArchiveProject } from '../lib/types';
 import { client, urlFor } from '../lib/sanity';
 import Navigation from '../components/Navigation.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -15,24 +16,24 @@ const query = `*[_type == 'archiveProject'] |  order(title asc) | order(rating d
 	layout
 }`;
 
-const projects = await client.fetch(query);
+const projects = await client.fetch<ArchiveProject[]>(query);
 ---
 
-<style lang='scss'>
+<style lang="scss">
 	@use '../styles/layouts/archive';
 	@use '../styles/components/video';
 </style>
 
-<BaseLayout title='Archive'>
+<BaseLayout title="Archive">
 	<Navigation />
-	<header class='hidden'>
-		<p class='text-link'>Sean Do</p>
+	<header class="hidden" aria-hidden="true">
+		<p class="text-link">Sean Do</p>
 	</header>
-	<section class='archive-heading'>
+	<section class="archive-heading">
 		<h1>ARCHIVE</h1>
 	</section>
-	<section class='archive-grid'>
-		<HoverCursor text='(PLAY)' />
+	<section class="archive-grid">
+		<HoverCursor text="(PLAY)" />
 		{
 			projects.map(({ title, media, layout }) => {
 				const { mediaType, image, video, thumbnail } = media;
@@ -48,7 +49,7 @@ const projects = await client.fetch(query);
 					);
 				}
 				if (mediaType === 'image' && image) {
-					return <img class={`archive-item--${layout}`} src={urlFor(image.asset).url()} alt={title} loading='lazy' />;
+					return <img class={`archive-item--${layout}`} src={urlFor(image.asset).url()} alt={title} loading="lazy" />;
 				}
 			})
 		}

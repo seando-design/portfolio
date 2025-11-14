@@ -1,10 +1,10 @@
-@use "sass:map";
-@use "./breakpoints" as *;
+@use 'sass:map';
+@use './breakpoints' as *;
 
 // GRID
 @mixin grid(
   $columns: 9,
-  $gap: var(--gap-xs),
+  $gap: var(--grid-gap),
   $align: stretch,
   $justify: start,
   $minmax: null
@@ -18,6 +18,8 @@
   gap: $gap;
   align-items: $align;
   justify-content: $justify;
+  @include responsive(medium) {
+  }
 }
 
 @mixin grid__item(
@@ -59,6 +61,27 @@
   }
 }
 
+// UNDERLINE LINK
+@mixin underline($thickness: 0.08em) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: currentColor;
+    height: $thickness;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
 // TRIM TEXT
 @mixin trim($type) {
   display: flow-root;
@@ -66,7 +89,7 @@
 
   &::before,
   &::after {
-    content: "";
+    content: '';
     height: 0;
     overflow: visible;
     pointer-events: none;

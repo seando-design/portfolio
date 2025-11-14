@@ -1,0 +1,24 @@
+---
+interface Props {
+	node?: {
+		markDef?: {
+			href?: string;
+		};
+	};
+	index?: number;
+	isInline?: boolean;
+}
+
+const href = Astro.props.node?.markDef?.href || '#';
+---
+
+<style lang="scss">
+	@use '../styles/abstracts/mixins' as *;
+	.portable-link {
+		@include underline;
+	}
+</style>
+
+<a href={href} class="portable-link" target="_blank" rel="noopener">
+	<slot />
+</a>

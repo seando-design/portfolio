@@ -1,4 +1,4 @@
-@use "../abstracts/mixins" as *;
+@use '../abstracts/mixins' as *;
 .footer {
   background-color: var(--cl-text);
   color: var(--cl-background);
@@ -16,9 +16,9 @@
   &__nav {
     @include grid__item();
     padding-top: var(--gap-m);
-    justify-self: center;
+    @include flex(row, $justify: space-between);
     a {
-      width: min-content;
+      // width: min-content;
       color: var(--cl-background);
     }
   }

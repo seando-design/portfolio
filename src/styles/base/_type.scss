@@ -53,6 +53,6 @@
 }
 
 .text-tag-large {
-  @include text-serif(var(--fs-link), 500);
+  @include text-serif(var(--fs-body), 500);
   text-transform: capitalize;
 }

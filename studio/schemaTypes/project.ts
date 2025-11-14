@@ -73,7 +73,11 @@ export default defineType({
       title: 'Description',
       description: 'Remember to italicise links',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [
+        {
+          type: 'block',
+        },
+      ],
       group: 'details',
     }),
     defineField({
