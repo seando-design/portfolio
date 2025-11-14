@@ -7,6 +7,9 @@
 }
 .archive-grid {
   @include grid(3);
+  img {
+    height: 100%;
+  }
   @include responsive(medium) {
     grid-template-columns: 1fr 1fr;
   }

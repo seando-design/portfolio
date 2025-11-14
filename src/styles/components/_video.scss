@@ -49,15 +49,9 @@ mux-video {
   .video-wrapper::after {
     opacity: 1;
   }
-  .video-wrapper.paused {
+  .video-wrapper.playing {
     &::after {
       opacity: 0;
     }
-  }
-}
-
-.video-wrapper.paused {
-  &::after {
-    opacity: 0;
   }
 }

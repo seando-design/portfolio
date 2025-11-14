@@ -49,7 +49,11 @@ const projects = await client.fetch<ArchiveProject[]>(query);
 					);
 				}
 				if (mediaType === 'image' && image) {
-					return <img class={`archive-item--${layout}`} src={urlFor(image.asset).url()} alt={title} loading="lazy" />;
+					return (
+						<div class={`archive-item--${layout}`}>
+							<img src={urlFor(image.asset).url()} alt={title} loading="lazy" />
+						</div>
+					);
 				}
 			})
 		}

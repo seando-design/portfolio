@@ -1,6 +1,7 @@
-@use "../abstracts/mixins" as *;
+@use '../abstracts/mixins' as *;
 .project-details {
   @include grid(8);
+  row-gap: var(--gap-m);
   .project-title {
     @include grid__item(2, 6);
     @include flex($gap: var(--gap-xs));

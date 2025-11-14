@@ -1,5 +1,5 @@
-@use "../abstracts/mixins" as *;
-@use "../base/type";
+@use '../abstracts/mixins' as *;
+@use '../base/type';
 
 .project-card {
   cursor: none;
@@ -13,7 +13,7 @@
 
   // HOVER EFFECT
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     height: 105%;
     width: 105%;
@@ -49,5 +49,22 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .project-card {
+    transition: transform 0.2s ease;
+
+    &::after {
+      height: 102%;
+      width: 102%;
+      top: -1%;
+      left: -1%;
+    }
+
+    &:active {
+      transform: scale(1.02);
+    }
   }
 }

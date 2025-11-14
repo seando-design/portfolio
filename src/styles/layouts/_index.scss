@@ -1,4 +1,4 @@
-@use "../abstracts/mixins" as *;
+@use '../abstracts/mixins' as *;
 
 header {
   @include grid();
@@ -10,13 +10,13 @@ header {
 .projects {
   @include grid();
   row-gap: var(--gap-m);
+  @include responsive(medium) {
+    row-gap: var(--gap-s);
+  }
   h1 {
     @include grid__item(3, -1);
-    @include responsive("medium") {
+    @include responsive('medium') {
       grid-column-start: 2;
-    }
-    @include responsive("small") {
-      grid-column-start: 1;
     }
   }
   .projects__grid {
@@ -25,9 +25,10 @@ header {
     row-gap: var(--gap-m);
     @include responsive(medium) {
       grid-column-start: 3;
+      row-gap: var(--gap-s);
     }
     @include responsive(small) {
-      @include grid(1);
+      grid-template-columns: 1fr;
       grid-column-start: 1;
     }
   }
