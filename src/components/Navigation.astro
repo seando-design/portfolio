@@ -7,33 +7,33 @@ export interface Props {
 const { prev, next } = Astro.props;
 ---
 
-<style lang='scss'>
+<style lang="scss">
 	@use '../styles/components/navigation';
 </style>
 
-<nav class='nav-fixed'>
-	<ul class='nav-top'>
+<nav class="nav-fixed">
+	<ul class="nav-top">
 		{
 			path !== '/' && (
 				<li>
-					<a href='/'>(SEAN DO)</a>
+					<a href="/">(SEAN DO)</a>
 				</li>
 			)
 		}
 
-		<li class='nav-email'>
-			<a href='mailto:seando.design@gmail.com'>(EMAIL)</a>
+		<li class="nav-email">
+			<a href="mailto:seando.design@gmail.com">(EMAIL)</a>
 		</li>
 	</ul>
-	<ul class='nav-bottom'>
+	<ul class="nav-bottom">
 		{
 			path !== '/archive' && (
 				<li>
-					<a href='/archive'>(ARCHIVE)</a>
+					<a href="/archive">(ARCHIVE)</a>
 				</li>
 			)
 		}
-		<ul class='nav-projects'>
+		<ul class="nav-projects">
 			<li>
 				{prev && <a href={`/project/${prev.slug}`}>(PREV)</a>}
 			</li>
@@ -42,7 +42,7 @@ const { prev, next } = Astro.props;
 			</li>
 		</ul>
 		<li>
-			<a id='scrollToTop'>(TO TOP)</a>
+			<a id="scrollToTop">(TO TOP)</a>
 		</li>
 	</ul>
 </nav>
@@ -54,7 +54,7 @@ const { prev, next } = Astro.props;
 	});
 
 	window.addEventListener('scroll', () => {
-		if (window.scrollY > 100) {
+		if (window.scrollY > 50) {
 			link?.classList.add('visible');
 		} else {
 			link?.classList.remove('visible');
