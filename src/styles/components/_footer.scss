@@ -13,6 +13,16 @@
   &__copyright {
     @include grid__item(1, 8);
   }
+  &__acknowledgement {
+    @include grid__item(7, 10);
+    text-align: right;
+    padding-top: var(--gap-m);
+    font-size: var(--fs-caption);
+    @include responsive(medium) {
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+  }
   &__nav {
     @include grid__item();
     padding-top: var(--gap-m);
