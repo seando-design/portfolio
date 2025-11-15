@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.10",
     "@mux/mux-video": "^0.27.2",
     "@portabletext/types": "^3.0.0",
     "@sanity/client": "^7.12.1",
