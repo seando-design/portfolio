@@ -34,7 +34,7 @@ const projects = await client.fetch<Project[]>(query);
 	<main class="projects">
 		<h1>Works</h1>
 		<div class="projects__grid">
-			<HoverCursor text="(OPEN)" />
+			<HoverCursor text="(OPEN)" target=".project-card" />
 
 			{
 				projects.map(project => (

@@ -79,6 +79,33 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'sensitiveContent',
+      title: 'Sensitive Content',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isSensitiveContent',
+          title: 'Is this sensitive content?',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'warning',
+          title: 'Warning',
+          type: 'array',
+          of: [
+            {
+              type: 'block',
+              styles: [],
+              lists: [],
+              marks: {annotations: []},
+            },
+          ],
+          hidden: ({parent}) => !parent?.isSensitiveContent,
+        }),
+      ],
+    }),
+    defineField({
       name: 'layout',
       type: 'string',
       options: {
@@ -98,5 +125,12 @@ export default defineType({
       validation: (rule) =>
         rule.min(0).error('Value must be >= 0').max(100).error('Value must be <=100'),
     }),
+  ],
+  orderings: [
+    {
+      title: 'Sort by Rating (High to Low)',
+      name: 'ratingDesc',
+      by: [{field: 'rating', direction: 'desc'}],
+    },
   ],
 })

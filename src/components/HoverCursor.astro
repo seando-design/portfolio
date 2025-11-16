@@ -1,32 +1,47 @@
 ---
-const { text } = Astro.props;
+interface Props {
+	text: string;
+	target: string;
+}
+const { text, target } = Astro.props;
 ---
 
-<style lang='scss'>
+<style lang="scss">
 	@use '../styles/components/hover-cursor';
 </style>
 
-<div class='hover-cursor'><span>{text}</span></div>
+<div class="hover-cursor" data-target={target}><span>{text}</span></div>
 
 <script>
-	const hoverCursor = document.querySelector('.hover-cursor') as HTMLElement | null;
-	function handleMouseMove(event: MouseEvent) {
-		if (!hoverCursor) return;
-		hoverCursor.style.left = `${event.clientX}px`;
-		hoverCursor.style.top = `${event.clientY}px`;
-	}
+	document.addEventListener('DOMContentLoaded', () => {
+		const hoverCursors = document.querySelectorAll('.hover-cursor') as NodeListOf<HTMLElement>;
+		if (!hoverCursors.length) return;
 
-	const hoverTargets = document.querySelectorAll('.project-card, mux-video, .video-thumbnail');
-	hoverTargets.forEach(target => {
-		target.addEventListener('mouseenter', () => {
-			hoverCursor!.style.opacity = '1';
-			hoverCursor!.classList.add('active');
-			document.addEventListener('mousemove', handleMouseMove);
-		});
-		target.addEventListener('mouseleave', () => {
-			hoverCursor!.style.opacity = '0';
-			hoverCursor!.classList.remove('active');
-			document.addEventListener('mousemove', handleMouseMove);
+		hoverCursors.forEach(hoverCursor => {
+			const targetProp = hoverCursor.dataset.target;
+			if (!targetProp) return;
+
+			const hoverTargets = document.querySelectorAll(targetProp) as NodeListOf<HTMLElement>;
+			if (!hoverTargets.length) return;
+
+			function handleMouseMove(event: MouseEvent) {
+				hoverCursor.style.left = `${event.clientX}px`;
+				hoverCursor.style.top = `${event.clientY}px`;
+			}
+
+			hoverTargets.forEach(target => {
+				target.style.cursor = 'none';
+				target.addEventListener('mouseenter', () => {
+					hoverCursor.style.opacity = '1';
+					hoverCursor.classList.add('active');
+					document.addEventListener('mousemove', handleMouseMove);
+				});
+				target.addEventListener('mouseleave', () => {
+					hoverCursor.style.opacity = '0';
+					hoverCursor.classList.remove('active');
+					document.removeEventListener('mousemove', handleMouseMove);
+				});
+			});
 		});
 	});
 </script>

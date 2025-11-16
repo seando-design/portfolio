@@ -11,7 +11,7 @@ const { title, playbackId, thumbnail } = Astro.props;
 	import '@mux/mux-video';
 	window.addEventListener('DOMContentLoaded', () => {
 		const videoWrappers = document.querySelectorAll<HTMLElement>('.video-wrapper');
-		const cursorText = document.querySelector('.hover-cursor span') as HTMLElement | null;
+		const cursorText = document.querySelector('.hover-cursor[data-target=".video-wrapper"] span') as HTMLElement | null;
 
 		if (!videoWrappers.length || !cursorText) return;
 
@@ -27,12 +27,10 @@ const { title, playbackId, thumbnail } = Astro.props;
 
 			const hidePlayButton = () => {
 				wrapper.classList.add('playing');
-				if (playButton) playButton.style.opacity = '0';
 			};
 
 			const showPlayButton = () => {
 				wrapper.classList.remove('playing');
-				if (playButton) playButton.style.opacity = '1';
 			};
 
 			wrapper.addEventListener('click', () => {

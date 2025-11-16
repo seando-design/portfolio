@@ -20,6 +20,9 @@
   z-index: 1;
   pointer-events: none;
   @include grid__item(1, -1, 1, 2);
+  @include responsive(small) {
+    align-self: center;
+  }
 }
 mux-video {
   display: block;
@@ -53,5 +56,10 @@ mux-video {
     &::after {
       opacity: 0;
     }
+  }
+
+  :global(.video-wrapper.playing .video-play-btn) {
+    opacity: 0;
+    display: none;
   }
 }

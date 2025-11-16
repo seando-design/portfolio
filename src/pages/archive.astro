@@ -5,6 +5,7 @@ import Navigation from '../components/Navigation.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Video from '../components/Video.astro';
 import HoverCursor from '../components/HoverCursor.astro';
+import ContentWarning from '../components/ContentWarning.astro';
 const query = `*[_type == 'archiveProject'] |  order(title asc) | order(rating desc) {
 	title,
 	media {
@@ -13,6 +14,7 @@ const query = `*[_type == 'archiveProject'] |  order(title asc) | order(rating d
 		video {asset->{playbackId}},
 		thumbnail {asset}
 	},
+	sensitiveContent,
 	layout
 }`;
 
@@ -31,12 +33,16 @@ const projects = await client.fetch<ArchiveProject[]>(query);
 	</header>
 	<section class="archive-heading">
 		<h1>ARCHIVE</h1>
+		<p>A collection of smaller projects and visual experimentations.</p>
 	</section>
 	<section class="archive-grid">
-		<HoverCursor text="(PLAY)" />
+		<HoverCursor target=".video-wrapper" text="(PLAY)" />
+		<HoverCursor target=".archive-item--sensitive" text="(SHOW)" />
+
 		{
-			projects.map(({ title, media, layout }) => {
+			projects.map(({ title, media, sensitiveContent, layout }) => {
 				const { mediaType, image, video, thumbnail } = media;
+				const { isSensitiveContent } = sensitiveContent ?? {};
 				if (mediaType === 'video' && video) {
 					return (
 						<div class={`video-wrapper archive-item--${layout}`}>
@@ -49,11 +55,20 @@ const projects = await client.fetch<ArchiveProject[]>(query);
 					);
 				}
 				if (mediaType === 'image' && image) {
-					return (
-						<div class={`archive-item--${layout}`}>
-							<img src={urlFor(image.asset).url()} alt={title} loading="lazy" />
-						</div>
-					);
+					if (!isSensitiveContent)
+						return (
+							<div class={`archive-item--${layout}}`}>
+								<img src={urlFor(image.asset).url()} alt={title} loading="lazy" />
+							</div>
+						);
+					else
+						return (
+							<div class={`archive-item--${layout} archive-item--sensitive`}>
+								<ContentWarning sensitiveContent={sensitiveContent} />
+
+								<img src={urlFor(image.asset).url()} alt={title} loading="lazy" />
+							</div>
+						);
 				}
 			})
 		}

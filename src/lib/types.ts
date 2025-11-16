@@ -32,5 +32,9 @@ export interface ArchiveProject {
     };
     thumbnail?: { asset: SanityImageSource };
   };
+  sensitiveContent: {
+    isSensitiveContent: boolean;
+    warning: PortableTextBlock[];
+  };
   layout: string;
 }

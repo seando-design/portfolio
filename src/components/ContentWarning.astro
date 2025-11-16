@@ -1,0 +1,48 @@
+---
+import { PortableText } from 'astro-portabletext';
+const { sensitiveContent } = Astro.props;
+---
+
+<style lang="scss">
+	@use '../styles/components/content-warning';
+</style>
+
+<div class="content-warning">
+	<div class="cw-top">
+		<h3 class="text-link">CONTENT WARNING</h3>
+		<PortableText value={sensitiveContent.warning} />
+	</div>
+
+	<p class="cw-bottom text-tag">
+		<i>Click to show</i>
+	</p>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const sensitiveContentBlocks = document.querySelectorAll<HTMLElement>('.archive-item--sensitive');
+		if (!sensitiveContentBlocks.length) return;
+
+		const cursorText = document.querySelector(
+			'.hover-cursor[data-target=".archive-item--sensitive"] span'
+		) as HTMLElement | null;
+		if (!cursorText) return;
+
+		sensitiveContentBlocks.forEach(sensitiveContent => {
+			const warning = sensitiveContent.querySelector('.content-warning') as HTMLElement;
+			if (!warning) return;
+
+			sensitiveContent.addEventListener('click', () => {
+				const warningOpacity = window.getComputedStyle(warning).opacity;
+
+				if (warningOpacity === '1') {
+					warning.style.opacity = '0';
+					cursorText.textContent = '(HIDE)';
+				} else {
+					warning.style.opacity = '1';
+					cursorText.textContent = '(SHOW)';
+				}
+			});
+		});
+	});
+</script>

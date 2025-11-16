@@ -1,0 +1,28 @@
+@use '../abstracts/mixins' as *;
+
+.content-warning {
+  position: absolute;
+  inset: 0;
+  padding: var(--pd-main);
+  @include grid(1);
+  background: var(--cl-text);
+  color: var(--cl-background);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  > * {
+    text-align: center;
+  }
+
+  .cw-top {
+    @include grid__item(1, -1, 1, 2);
+    align-self: center;
+    @include flex($gap: var(--gap-xs));
+  }
+
+  .cw-bottom {
+    @include grid__item(1, -1, 1, 2);
+    align-self: end;
+    font-size: var(--fs-caption);
+  }
+}
