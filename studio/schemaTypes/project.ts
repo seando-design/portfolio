@@ -126,4 +126,11 @@ export default defineType({
       initialValue: '2-col',
     }),
   ],
+  orderings: [
+    {
+      title: 'Sort by Rating (High to Low)',
+      name: 'ratingDesc',
+      by: [{field: 'rating', direction: 'desc'}],
+    },
+  ],
 })
